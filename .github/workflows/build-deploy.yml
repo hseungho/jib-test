@@ -56,8 +56,10 @@ jobs:
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
             container_name=$(docker ps | grep jib-test | awk '{print $NF}')
+            echo "$container_name"
             docker pull hseungho/jib-test:${{ needs.build.outputs.tag-name }}
             docker run -d --name jib-test-${{ needs.build.outputs.tag-name }} -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
+            echo "$container_name"
             if [ -n "$container_name" ]; then
               docker stop $container_name && docker rm $container_name
             fi
