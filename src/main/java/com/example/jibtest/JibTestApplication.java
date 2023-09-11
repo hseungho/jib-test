@@ -13,7 +13,7 @@ public class JibTestApplication {
         SpringApplication.run(JibTestApplication.class, args);
     }
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     @ResponseStatus(HttpStatus.OK)
     public String hello() {
         return "Hello JIB World";
