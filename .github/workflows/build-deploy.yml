@@ -34,7 +34,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build image
-        run: ./gradlew jib -Djib.to.tags=${{ steps.extract_version_name.outputs.version }}
+        run: ./gradlew jib -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set version
         run: echo 'tag_name=${{ steps.extract_version_name.outputs.version }}' >> $GITHUB_OUTPUT
@@ -52,6 +52,6 @@ jobs:
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
-            docker pull hseungho/jib-test:${{ needs.build.outputs.tag_name }}
+            docker pull hseungho/jib-test:latest
             docker stop jib-test && docker rm jib-test
             docker run -d --name jib-test -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag_name }}
