@@ -57,7 +57,7 @@ jobs:
           script: |
             container_name=$(docker ps -a | grep jib-test | awk '{print $NF}')
             docker pull hseungho/jib-test:${{ needs.build.outputs.tag-name }}
-            docker run -d --name jib-test -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
+            docker run -d --name jib-test-${{ needs.build.outputs.tag-name }} -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
             if [ -n "$container_name" ]; then
               docker stop $container_name && docker rm $container_name
             fi
