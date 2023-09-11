@@ -1,8 +1,9 @@
 plugins {
     id 'java'
     id 'war'
-    id 'org.springframework.boot' version '2.7.15'
+    id 'org.springframework.boot' version '2.6.8'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'com.google.cloud.tools.jib' version '3.3.2'
 }
 
 group = 'com.example'
@@ -24,4 +25,14 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image='adoptopenjdk/openjdk11:jre-11.0.15_10-ubuntu'
+    }
+    to {
+        image='hseungho/jib-test'
+    }
+    container {}
 }
