@@ -60,3 +60,4 @@ jobs:
             docker run -d --name jib-test -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
             if [ -n "$container_name" ]; then
               docker stop $container_name && docker rm $container_name
+            fi
