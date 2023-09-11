@@ -6,8 +6,6 @@ on:
       - main
 
 jobs:
-  env:
-    TAG_NAME: 0.0.1
   build:
     runs-on: ubuntu-latest
 
