@@ -56,9 +56,14 @@ jobs:
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
             container_name=$(docker ps | grep jib-test | awk '{print $NF}')
+            cur_port=$(docker port "$container_name")
             docker pull hseungho/jib-test:${{ needs.build.outputs.tag-name }}
-            docker run -d --name jib-test-${{ needs.build.outputs.tag-name }} -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
+            if [[ $cur_port == *"8080"* ]]; then
+              docker run -d --name jib-test-${{ needs.build.outputs.tag-name }} -p 8081:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
+            else
+              docker run -d --name jib-test-${{ needs.build.outputs.tag-name }} -p 8080:8080 hseungho/jib-test:${{ needs.build.outputs.tag-name }}
+            fi
             if [ -n "$container_name" ]; then
-              docker stop $container_name && docker rm $container_name
+              docker stop $container_name
             fi
             docker ps
