@@ -38,7 +38,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build image
-        run: ./gradlew jib -Pdocker.username=${{ steps.docker-login.outputs.docker_username }} -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
+        run: ./gradlew jib \
+          -Pdocker.username=${{ steps.docker-login.outputs.docker_username }} \
+          -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
         id: set-tagname
