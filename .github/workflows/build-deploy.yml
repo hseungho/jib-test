@@ -38,8 +38,8 @@ jobs:
       - name: Build image
         run: >
           ./gradlew jib 
-          -Pdocker.username=${{ secrets.DOCKER_USERNAME }} 
-          -Pdocker.pw=${{ secrets.DOCKER_PASSWORD }} 
+          -Pdocker.username='${{ secrets.DOCKER_USERNAME }}' 
+          -Pdocker.pw='${{ secrets.DOCKER_PASSWORD }}' 
           -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
