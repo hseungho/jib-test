@@ -53,13 +53,7 @@ jib {
     }
     to {
         var username = project.findProperty('docker.username')
-        var password = project.findProperty('docker.password')
-        auth {
-            it.username = username
-            it.password = password
-        }
-        var _image = username+'/jib-test'
-        image=_image
+        image=username+'/jib-test'
     }
     container {
         labels["maintainer"]="hseungho <hsh47607@gmail.com>"
