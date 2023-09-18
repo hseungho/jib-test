@@ -36,7 +36,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build image
-        run: ./gradlew jib -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
+        run: ./gradlew jib \
+          -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest \
+          -Djib.to.images=${{ secrets.DOCKER_USERNAME }}/jib-test
 
       - name: set tagname
         id: set-tagname
