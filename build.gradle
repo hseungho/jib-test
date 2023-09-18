@@ -51,9 +51,6 @@ jib {
             }
         }
     }
-    to {
-        image='hseungho/jib-test'
-    }
     container {
         labels["maintainer"]="hseungho <hsh47607@gmail.com>"
         mainClass='com.example.jibtest.JibTestApplication'
