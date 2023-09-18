@@ -52,8 +52,8 @@ jib {
         }
     }
     to {
-        var username = project.findProperty('docker.username').toString()
-        var password = project.findProperty('docker.password').toString()
+        var username = project.findProperty('docker.username')
+        var password = project.findProperty('docker.password')
         auth {
             it.username = username
             it.password = password
