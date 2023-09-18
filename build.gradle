@@ -51,6 +51,16 @@ jib {
             }
         }
     }
+    to {
+        var username = project.findProperty('docker.username').toString()
+        var password = project.findProperty('docker.password').toString()
+        auth {
+            it.username = username
+            it.password = password
+        }
+        var _image = username+'/jib-test'
+        image=_image
+    }
     container {
         labels["maintainer"]="hseungho <hsh47607@gmail.com>"
         mainClass='com.example.jibtest.JibTestApplication'
