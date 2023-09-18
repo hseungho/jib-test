@@ -39,6 +39,7 @@ jobs:
         run: >
           ./gradlew jib 
           -Pdocker.username=${{ secrets.DOCKER_USERNAME }} 
+          -Pdocker.password=${{ secrets.DOCKER_PASSWORD }}
           -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
