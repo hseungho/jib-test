@@ -21,9 +21,11 @@ jobs:
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        id: docker-login
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+        run: echo "##[set-output name=docker_username;]$(echo '${{ secrets.DOCKER_USERNAME }}'
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
@@ -36,9 +38,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build image
-        run: ./gradlew jib \
-          --to-username=${{ secrets.DOCKER_USERNAME }} \
-          -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
+        run: ./gradlew jib -Pdocker.username=${{ steps.docker-login.outputs.docker_username }} -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
         id: set-tagname
