@@ -37,7 +37,7 @@ jobs:
 
       - name: Build image
         run: ./gradlew jib \
-          -Pdocker.username=${{ secrets.DOCKER_USERNAME }} \
+          --to-username=${{ secrets.DOCKER_USERNAME }} \
           -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
