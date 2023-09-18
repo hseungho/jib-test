@@ -28,9 +28,23 @@ tasks.named('test') {
 jib {
     from {
         image='adoptopenjdk/openjdk11:jre-11.0.15_10-ubuntu'
+        platforms {
+            platform {
+                architecture='arm64/v8'
+                os='linux'
+            }
+            platform {
+                architecture='amd64'
+                os='linux'
+            }
+        }
     }
     to {
         image='hseungho/jib-test'
     }
-    container {}
+    container {
+        labels["maintainer"]="hseungho <hsh47607@gmail.com>"
+        mainClass='com.example.jibtest.JibTestApplication'
+        ports=['8081']
+    }
 }
