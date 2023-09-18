@@ -45,6 +45,6 @@ jib {
     container {
         labels["maintainer"]="hseungho <hsh47607@gmail.com>"
         mainClass='com.example.jibtest.JibTestApplication'
-        ports=['8081']
+        ports=['8080']
     }
 }
