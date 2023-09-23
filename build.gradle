@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'war'
     id 'org.springframework.boot' version '2.6.8'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'com.google.cloud.tools.jib' version '3.3.2'
@@ -12,16 +13,32 @@ java {
     sourceCompatibility = '11'
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    compile {
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
-bootJar {
-    enabled=true
+processResources {
+    filesMatching('**/application.properties') {
+        expand(project.properties)
+    }
 }
-jar {
-    enabled=true
-}
+
+bootWar.enabled = true // (1)
+war.enabled = false  // (2)
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -57,15 +74,6 @@ jib {
                 os='linux'
             }
         }
-    }
-    to {
-        var username = project.findProperty('docker.username')
-        var password = project.findProperty('docker.password')
-        auth {
-            it.username = username
-            it.password = password
-        }
-        image=username+'/jib-test'
     }
     container {
         labels["maintainer"]="hseungho <hsh47607@gmail.com>"
