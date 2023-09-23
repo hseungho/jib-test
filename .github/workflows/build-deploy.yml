@@ -38,7 +38,7 @@ jobs:
       - name: Build image
         run: >
           ./gradlew jib 
-          -Djib.to.image='${{ sercets.DOCKER_USERNAME }}/jib-test'
+          -Djib.to.image='${{ secrets.DOCKER_USERNAME }}/jib-test'
           -Djib.to.tags=${{ steps.extract_version_name.outputs.version }},latest
 
       - name: set tagname
