@@ -49,6 +49,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+
 jib {
     from {
         image='adoptopenjdk/openjdk11:jre-11.0.15_10-ubuntu'
